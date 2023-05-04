@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="/js/jquery.maskedinput.min.js"></script>
+  <script>
+    window.addEventListener("DOMContentLoaded", function() {
+      [].forEach.call( document.querySelectorAll('.tel'), function(input) {
+        var keyCode;
+        function mask(event) {
+          event.keyCode && (keyCode = event.keyCode);
+          var pos = this.selectionStart;
+          if (pos < 3) event.preventDefault();
+          var matrix = "+375-(__)-___-__-__",
+                  i = 0,
+                  def = matrix.replace(/\D/g, ""),
+                  val = this.value.replace(/\D/g, ""),
+                  new_value = matrix.replace(/[_\d]/g, function(a) {
+                    return i < val.length ? val.charAt(i++) || def.charAt(i) : a
+                  });
+          i = new_value.indexOf("_");
+          if (i != -1) {
+            i < 5 && (i = 3);
+            new_value = new_value.slice(0, i)
+          }
+          var reg = matrix.substr(0, this.value.length).replace(/_+/g,
+                  function(a) {
+                    return "\\d{1," + a.length + "}"
+                  }).replace(/[+()]/g, "\\$&");
+          reg = new RegExp("^" + reg + "$");
+          if (!reg.test(this.value) || this.value.length < 5 || keyCode > 47 && keyCode < 58) this.value = new_value;
+          if (event.type == "blur" && this.value.length < 5)  this.value = ""
+        }
+
+        input.addEventListener("input", mask, false);
+        input.addEventListener("focus", mask, false);
+        input.addEventListener("blur", mask, false);
+        input.addEventListener("keydown", mask, false)
+
+      });
+
+    });
+
+  </script>
+  <meta charset="UTF-8">
+  <title>Profile Page</title>
+  <style>
+    /* Global styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Arial';
+      font-size: 16px;
+      line-height: 1.4;
+      background-color: #252525;
+      color: white;
+    }
+
+    /* Header styles */
+    .header {
+      background-color: black;
+    }
+
+    .header-title{
+      background: black;
+      color: white;
+      text-align: center;
+      width: 35%;
+      margin-left: 110px;
+      padding: 10px;
+    }
+
+    .header h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    /* Profile picture styles */
+    .profile-pic {
+      border-radius: 50%;
+      height: 200px;
+      margin: 20px 140px;
+      width: 200px;
+    }
+
+    a{
+      text-decoration: none;
+    }
+
+    /* Form styles */
+    .form-container {
+
+      max-width: 800px;
+      padding: 100px;
+      width: 800px;
+    }
+
+    .profile-container{
+      margin: 0;
+      display: inline-block;
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 100vw;
+      height: 100%;
+      background-image: url("../../playground_assets/image1.png");
+    }
+
+    .profile-container-right{
+      display: list-item;
+    }
+
+    .logout{
+      width: 20%;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"], input[type="email"], input[type="submit"], input[type="file"], input[type="button"] {
+      border-radius: 20px;
+      border: 1px solid #000000;
+      font-size: 16px;
+      padding: 10px;
+      width: 100%;
+
+    }
+
+     input[type="button"] {
+      background-color: white;
+      color: #000;
+      cursor: pointer;
+      margin-top: 20px;
+       border-radius: 20px;
+       border: none;
+    }
+
+    input[type="submit"] {
+      background-color: white;
+      color: #000;
+      cursor: pointer;
+      margin-top: 20px;
+      border: none;
+      border-radius: 20px;
+    }
+
+     input[type="button"]:hover {
+      background-color: #555;
+    }
+
+    /* Media queries */
+    @media only screen and (min-width: 768px) {
+      .header h1 {
+        font-size: 48px;
+      }
+
+      .profile-pic {
+        height: 240px;
+        width: 240px;
+      }
+
+
+      label {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      input[type="text"], input[type="email"], input[type="submit"], input[type="file"], input[type="button"]{
+        font-size: 20px;
+      }
+
+
+    }
+
+    table {
+      position: relative;
+      width: 40%;
+      left: 50%;
+      top: -640px;
+      color: black;
+      background-color: rgb(255,255,255,0.4);
+
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    td:last-child {
+      text-align: center;
+    }
+
+    td:last-child button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      background-color: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+    }
+
+
+
+    td:last-child button:hover {
+      opacity: 0.8;
+    }
+
+
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="header-title"><h1>Личная страница</h1></div>
+</header>
+<section class="profile-container">
+
+
+
+  <div class="form-container">
+
+    <form th:action="@{/user/update}" method="post" enctype="multipart/form-data">
+      <label for="firstname">Фамилия:</label>
+      <input type="text" id="firstname" name="firstname" placeholder="Enter your full name" th:value="${user.getLastname()}" >
+
+      <label for="lastname">Имя:</label>
+      <input type="text" id="lastname" name="lastname" placeholder="Enter your full name" th:value="${user.getFirstname()}" >
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" th:value="${user.getEmail()}" disabled>
+
+      <label for="phone">Телефон:</label>
+      <input type="text" id="phone" name="phone" class="tel" placeholder="Enter your phone number" th:value="${user.getNumber()}">
+
+
+      <input type="submit" value="Сохранить">
+      <a th:href="@{/user/booking}"><input type="button" value="Записаться"></a>
+
+
+
+
+    </form>
+
+    <div sec:authorize="isAuthenticated()" class="text-center p-3">
+      <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout" class="logout" />
+      </form>
+    </div>
+
+  </div>
+</section>
+<section class="profile-container-right">
+
+  <table>
+    <caption style="color: white"><h1>Запись клиента: </h1><h1 th:text="${user.getEmail()}"></h1> </caption>
+    <thead>
+    <tr>
+      <th>Тип</th>
+      <th>Цена</th>
+      <th>Дата</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="haircut:${haircuts}">
+      <td><span th:text="${haircut.getType()}"></span></td>
+      <td><span th:text="${haircut.getPrice()}"></span></td>
+      <td><span th:text="${haircut.getDate()}"></span></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+</section>
+</body>
+</html>

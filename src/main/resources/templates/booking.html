@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat Alternates' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <title>Course Registration</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script>
+        $( function() {
+                for (let i =0; i<3;i++){
+                    $( '#datepicker' ).datepicker({
+                        minDate: 0,showButtonPanel: true
+                    });
+                }
+
+
+            }
+        );
+    </script>
+    <style>
+        /* Global styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat Alternates';
+            font-size: 16px;
+            line-height: 1.4;
+            background-image: url("../../playground_assets/image1.png");
+        }
+
+        /* Header styles */
+        .header {
+
+            color: black;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        /* Form styles */
+        .form-container {
+            margin: 20px auto;
+            max-width: 80vw;
+            background-color: rgb(255,255,255,0.4);
+            display: flex;
+            flex-direction: row;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="email"], input[type="submit"] {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        /* Media queries */
+        @media only screen and (min-width: 768px) {
+            .header h1 {
+                font-size: 48px;
+            }
+
+            .form-container {
+                padding: 40px;
+            }
+
+            label {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            input[type="text"], input[type="email"], input[type="submit"] {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<section class="form-container">
+    <img style="flex: 1 1; width: 50%;" src="../../playground_assets/image1.png"/>
+    <form th:action="@{/user/booking}" method="post" style=" flex: 1 1; margin-left: 20px">
+        <header class="header">
+            <h1>Запись</h1>
+        </header>
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+        <h6 th:text="${valid}"></h6>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <label for="phone">Телефон:</label>
+        <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+        <label for="datepicker">Дата:</label>
+        <input type="text" name="date" id="datepicker" placeholder="ДД/ММ/ГГГГ" required>
+
+        <label for="course">Тип стрижки:</label>
+        <select id="course" name="type"   style=" border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            padding: 10px;
+            width: 100%;">
+            <option selected value="men">Мужская-20р</option>
+            <option value="women">Женская-20р</option>
+            <option value="child">Детская-15р</option>
+        </select>
+
+
+
+        <input type="submit" value="Записаться">
+    </form>
+</section>
+</body>
+</html>

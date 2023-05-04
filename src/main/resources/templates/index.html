@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Парикмахерская</title>
+    <style>
+        *{
+            margin: 0;
+        }
+        body {
+            margin: 0;
+            font-family: 'Oswald';
+            background-color: #262626;
+            height: 100vh;
+        }
+
+        footer{
+            background-color: black;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+
+        hr {
+            margin: 0;
+        }
+
+        a {
+            border-radius: 20px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .profile-pic {
+            border-radius: 50%;
+            height: 400px;
+            width: 400px;
+            padding: 80px;
+        }
+
+        /* стили для мобильных устройств */
+        @media only screen and (max-width: 600px) {
+            /* заголовок и навигация */
+            header {
+                background-color: yellow;
+                padding: 10px;
+                text-align: center;
+            }
+
+            h1 {
+                color: black;
+                font-size: 28px;
+                margin: 0;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            nav.open ul {
+                display: block;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+            }
+
+            nav.open li {
+                display: block;
+                padding: 10px;
+                border-bottom: 1px solid #fff;
+            }
+
+            nav.open li:last-child {
+                border-bottom: none;
+            }
+
+            nav a {
+                color: #fff;
+                font-size: 20px;
+                text-decoration: none;
+                display: block;
+            }
+
+            /* секции */
+            section {
+                padding: 20px;
+            }
+
+            .profile-pic {
+                display: none
+            }
+
+            h2 {
+                font-size: 24px;
+                margin: 0 0 10px;
+            }
+
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+
+            li {
+                font-size: 18px;
+                line-height: 1.5;
+                margin-bottom: 10px;
+                padding-left: 20px;
+                position: relative;
+            }
+
+            li:before {
+                content: "•";
+                color: #8e8e8e;
+                font-size: 12px;
+                left: 0;
+                position: absolute;
+                top: 6px;
+            }
+        }
+
+
+
+        /* стили для настольных компьютеров */
+        @media only screen and (min-width: 961px) {
+            /* заголовок и навигация */
+            header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 50px;
+                background-color: black;
+
+            }
+
+            .container{
+                /* max-width: 1020px; */
+                /* width: 80%; */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 76%;
+                background-image: url("../../playground_assets/backbarber.png");
+                color: white;
+                font-family: Oswald;
+
+            }
+
+            main {
+                display: inline-flex;
+            }
+
+            h1 {
+                font-size: 48px;
+            }
+
+            nav ul {
+                display: flex;
+                align-items: center;
+            }
+
+            nav li {
+                border-bottom: none;
+                margin-right: 100px;
+            }
+
+            nav a {
+                font-size: 20px;
+                padding: 10px 20px;
+                border-radius: 20px;
+                color: #fff;
+                background-color: #252525;
+                text-decoration: none;
+            }
+
+            nav a:hover {
+                background-color: #555;
+            }
+
+            /* секции */
+            section {
+                padding: 10px 80px 10px 80px;
+            }
+
+            h2 {
+                font-size: 48px;
+            }
+
+            li {
+                font-size: 40px;
+                margin-bottom: 30px;
+
+            }
+
+            li:before {
+                font-size: 24px;
+                top: 10px;
+            }
+
+            /* подвал */
+            footer {
+                background-color: black;
+                color: #fff;
+                text-align: center;
+                padding: 15px;
+                height: 100%;
+            }
+
+            .right {
+
+            }
+            main{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 85%;
+                border-radius: 10px;
+                box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            }
+
+
+            .describe-text li{
+                font-size: 15px;
+                list-style-type: disc;
+                margin: 0;
+            }
+
+            .describe-text-first li{
+                font-size: 15px;
+                list-style-type: disc;
+                margin: 0;
+            }
+
+            .a-class a{
+                text-decoration: none;
+                background: none;
+            }
+
+
+            .title-back{
+                background: black;
+                color: white;
+                padding: 20px 40px;
+                margin-left: 110px;
+            }
+
+            header{
+                padding: 0;
+            }
+
+            input[type="button"] {
+                background-color: white;
+                color: #000;
+                cursor: pointer;
+                margin-top: 20px;
+                text-decoration: none;
+                list-style-type: none;
+                font-weight: bold;
+                border-radius: 5px;
+                border: none;
+                font-size: 16px;
+                padding: 10px 75px;
+                width: 100%;
+                font-family: Oswald;
+            }
+
+        }
+
+
+    </style>
+</head>
+<body>
+<header>
+
+    <div class="title-back"><h1>Парикмахерская</h1></div>
+
+    <nav>
+        <ul>
+            <li><a th:href="@{/login}">Войти</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="container">
+
+    <h1>Запишись прямо сейчас!</h1>
+    <a th:href="@{/booking}"><input type="button" value="Записаться"></a>
+
+</div>
+
+
+
+
+</body>
+<div id="sm-wrapper">
+    <footer>
+        <p>© Парикмахерская, 2023</p>
+    </footer>
+</div>
+</html>
